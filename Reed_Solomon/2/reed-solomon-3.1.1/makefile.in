@@ -7,7 +7,7 @@ exec_prefix=@exec_prefix@
 VPATH = @srcdir@
 CC=@CC@
 
-CFLAGS=@CFLAGS@ @ARCH_OPTION@ -Wall
+CFLAGS=@CFLAGS@ @ARCH_OPTION@ -Wall -fPIC
 
 LIB=	encode_rs_char.o encode_rs_int.o encode_rs_8.o \
 	decode_rs_char.o decode_rs_int.o decode_rs_8.o \
