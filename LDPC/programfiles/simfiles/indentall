@@ -1,0 +1,9 @@
+#! /bin/csh -f
+    foreach f (*.h)
+	         echo indent $f
+            ./indentation.sh $f 
+    end
+    foreach f (*.c)
+	         echo indent $f
+            ./indentation.sh $f 
+    end

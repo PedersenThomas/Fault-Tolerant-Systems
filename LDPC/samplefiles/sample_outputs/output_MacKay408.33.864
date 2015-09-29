@@ -1,0 +1,20 @@
+
+read param file ... samplefiles/sample_params/param_MacKay408.33.864
+ seeds: 42097 42512 64perform sanity check on consistency of input ...... check finished 
+
+
+simulations:
+results are printed in the following format.
+i ... initial number of errors over the whole length
+r ... remaining number of errors over the whole length
+t ... total number of errors over the whole length
+p ... bit error rate.
+w ... number of word errors over the whole length
+wr ... word error rate over the whole length
+em ... nb of messages carrying errors at the end of one loopnbe ... nb of edges in current graphrealization[0.8929- 10000] i:=    49 r:=     0 pb:=0.0625865196 0.6602935786 <= pB:=      0.6697 <= 0.6791064214
+[0.8621- 10000] i:=    54 r:=    35 pb:=0.0381026961  0.428974945 <= pB:=      0.4389 <=  0.448825055
+[0.833- 10000] i:=    40 r:=     0 pb:=0.0199598039 0.2342244963 <= pB:=      0.2428 <= 0.2513755037
+[0.8065- 10000] i:=    51 r:=     0 pb:=0.0089284314 0.1073510691 <= pB:=      0.1137 <= 0.1200489309
+[0.7576- 10000] i:=    50 r:=     0 pb:=0.0010090686 0.01302939279 <= pB:=      0.0155 <= 0.01797060721
+
+ simulation ends

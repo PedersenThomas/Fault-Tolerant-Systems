@@ -1,0 +1,24 @@
+
+read param file ... samplefiles/sample_params/param_irreg_bec_n512_randseeds_printonscreenperform sanity check on consistency of input ...... check finished 
+
+
+simulations:
+results are printed in the following format.
+i ... initial number of errors over the whole length
+r ... remaining number of errors over the whole length
+pb ... bit error rate.
+pB ... word error rate over the whole length with confidence interval
+
+
+ /******* SEEDS ***********/
+graphseeds:   608 529 45664
+channelseeds: 5184 1072 5696
+/*************************/
+
+[0.5-   100] i:=   253 r:=   172 pb:=0.3347953216 0.9701002513 <= pB:=        0.99 <=  1.009899749
+[0.48-   100] i:=   259 r:=   195 pb:=0.2532943470 0.8657413601 <= pB:=        0.92 <= 0.9742586399
+[0.44-   100] i:=   221 r:=     0 pb:=0.0673879142          0.4 <= pB:=         0.5 <=          0.6
+[0.4-   100] i:=   200 r:=     0 pb:=0.0050097466 0.1458334983 <= pB:=        0.23 <= 0.3141665017
+[0.34-   100] i:=   164 r:=     0 pb:=0.0017348928 0.1458334983 <= pB:=        0.23 <= 0.3141665017
+
+ simulation ends

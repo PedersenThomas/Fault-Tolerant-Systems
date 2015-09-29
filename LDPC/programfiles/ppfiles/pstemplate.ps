@@ -1,0 +1,466 @@
+
+
+% color, scaling pattern and thickness
+% of lines for curves
+/rreal 1 def
+/greal 0 def
+/breal 0 def
+/rscaled 0 def
+/gscaled 0 def
+/bscaled 1 def
+/thicknessreal 0.75 def
+/thicknessscaled 0.75 def
+/deltaepsilon 0.001 def
+
+%
+% image size parameters 
+/ximagepts 337 def
+/yimagepts 210 def
+/leftpts 30 def
+/rightpts 0 def
+/bottompts 20 def
+/toppts 0 def
+%
+% boundaries
+/ystart 1e-6 def
+/yend 1e-0 def
+%
+% stepsizes
+/yticdelta 2 def
+/ygriddelta 2 def
+/myfontsize 10 def
+%
+% is y scale logarithmic
+% 0 linear scale
+% 1 logarithmic
+/logscale 1 def
+/logticspacing 100 def
+/loggridspacing 100 def
+%
+% axes parameters
+/axeswidth 0.5 def
+/axesr 0 def
+/axesg 0 def
+/axesb 0 def
+%
+% tic parameters
+/ticmainwidth 0.5 def
+/ticfinewidth 0.2 def
+/ticr 0 def
+/ticg 0 def
+/ticb 0 def
+/tichalflength 2 def
+%
+% grid parameters 
+/gridmainwidth 0.05 def
+/gridfinewidth 0.025 def
+/gridr 0 def
+/gridg 0 def
+/gridb 0 def
+/griddasha 3 def
+/griddashb 3 def
+%
+% derived variables
+/xtotalpts {leftpts ximagepts add rightpts add} def
+/ytotalpts {bottompts yimagepts add toppts add} def
+logscale 1 eq
+{
+/ystart ystart log def
+/yend   yend log   def
+}
+if
+/xscale {ximagepts xend xstart sub div} def
+/yscale {yimagepts yend ystart sub div} def
+%
+% commands to move in this coordinate system
+%
+% x->linear; y->linear 
+/mlinlin
+   { 
+   exch xstart sub xscale mul leftpts add 
+   exch ystart sub yscale mul bottompts add moveto
+   } 
+def
+/llinlin
+   {
+   exch xstart sub xscale mul leftpts add 
+   exch ystart sub yscale mul bottompts add lineto
+   } 
+def
+%
+% x->dB; y->linear
+/mdBlin
+   {
+   exch dup mul 1 exch div log 10 mul
+   xstart sub xscale mul leftpts add
+   exch ystart sub yscale mul bottompts add moveto
+   }
+def
+/ldBlin
+   {
+   exch dup mul 1 exch div log 10 mul
+   xstart sub xscale mul leftpts add
+   exch ystart sub yscale mul bottompts add lineto
+   }
+def
+%
+% x->dB; y->log
+/mdBlin
+   {
+   exch dup mul 1 exch div log 10 mul
+   xstart sub xscale mul leftpts add
+   exch log ystart sub yscale mul bottompts add moveto
+   }
+def
+/ldBlin
+   {
+   exch dup mul 1 exch div log 10 mul
+   xstart sub xscale mul leftpts add
+   exch log ystart sub yscale mul bottompts add lineto
+   }
+def
+%
+% x->linear; y->logarithmic
+/mlinlog
+   {
+   exch xstart sub xscale mul leftpts add
+   exch log ystart sub yscale mul bottompts add moveto
+   }
+def
+/llinlog
+   {
+   exch xstart sub xscale mul leftpts add
+   exch log ystart sub yscale mul bottompts add lineto
+   }
+def
+%
+/rarrowto 
+   {
+   2 copy rlineto
+   gsave
+   currentpoint newpath moveto
+   exch atan rotate
+   dup scale
+   -1 .3 rlineto .2 -.3 rlineto -0.2 -.3 rlineto closepath fill
+   grestore
+   } 
+def
+/arrowto 
+   {
+   currentpoint 3 -1 roll sub neg 3 1 roll sub exch rarrowto
+   } 
+def
+
+% plot function depends on display
+logscale 1 eq
+   {
+   /m {mlinlog} def
+   /l {llinlog} def
+   }
+   {
+   /m {mlinlin} def
+   /l {llinlin} def
+   }
+ifelse
+
+% center characters
+/cshow
+   {
+   dup stringwidth pop 2 div neg 0 rmoveto show
+   }
+def
+/superscriptshow {% string1 string2 superscriptshow - 
+             exch show
+             gsave newpath 0 0 moveto (\() false charpath pathbbox
+                exch pop exch sub exch pop
+             grestore .5 mul dup 0 exch rmoveto
+             currentfont dup .8 scalefont setfont
+               3 -1 roll show setfont 0 exch neg rmoveto
+             } def
+/subscriptshow {exch show
+              gsave newpath 0 0 moveto (\() false charpath pathbbox
+                exch pop exch sub exch pop
+             grestore -.4 mul dup 0 exch rmoveto
+             currentfont dup .8 scalefont setfont
+               3 -1 roll show setfont 0 exch neg rmoveto
+             } def
+
+				
+/qarray
+[0.50000000 0.49601064 0.49202169 0.48803353 0.48404656 0.48006119 0.47607782 0.47209683 0.46811863 0.46414361
+ 0.46017216 0.45620469 0.45224157 0.44828321 0.44433000 0.44038231 0.43644054 0.43250507 0.42857628 0.42465457
+ 0.42074029 0.41683384 0.41293558 0.40904588 0.40516513 0.40129367 0.39743189 0.39358013 0.38973875 0.38590812
+ 0.38208858 0.37828048 0.37448417 0.37069998 0.36692826 0.36316935 0.35942357 0.35569125 0.35197271 0.34826827
+ 0.34457826 0.34090297 0.33724273 0.33359782 0.32996855 0.32635522 0.32275811 0.31917751 0.31561370 0.31206695
+ 0.30853754 0.30502573 0.30153179 0.29805597 0.29459852 0.29115969 0.28773972 0.28433885 0.28095731 0.27759532
+ 0.27425312 0.27093090 0.26762889 0.26434729 0.26108630 0.25784611 0.25462691 0.25142890 0.24825223 0.24509709
+ 0.24196365 0.23885207 0.23576250 0.23269509 0.22965000 0.22662735 0.22362729 0.22064995 0.21769544 0.21476388
+ 0.21185540 0.20897009 0.20610805 0.20326939 0.20045419 0.19766254 0.19489452 0.19215020 0.18942965 0.18673294
+ 0.18406013 0.18141125 0.17878638 0.17618554 0.17360878 0.17105613 0.16852761 0.16602325 0.16354306 0.16108706
+ 0.15865525 0.15624765 0.15386423 0.15150500 0.14916995 0.14685906 0.14457230 0.14230965 0.14007109 0.13785657
+ 0.13566606 0.13349951 0.13135688 0.12923811 0.12714315 0.12507194 0.12302440 0.12100048 0.11900011 0.11702320
+ 0.11506967 0.11313945 0.11123244 0.10934855 0.10748770 0.10564977 0.10383468 0.10204232 0.10027257 0.09852533
+ 0.09680048 0.09509792 0.09341751 0.09175914 0.09012267 0.08850799 0.08691496 0.08534345 0.08379332 0.08226444
+ 0.08075666 0.07926984 0.07780384 0.07635851 0.07493370 0.07352926 0.07214504 0.07078088 0.06943662 0.06811212
+ 0.06680720 0.06552171 0.06425549 0.06300836 0.06178018 0.06057076 0.05937994 0.05820756 0.05705343 0.05591740
+ 0.05479929 0.05369893 0.05261614 0.05155075 0.05050258 0.04947147 0.04845723 0.04745968 0.04647866 0.04551398
+ 0.04456546 0.04363294 0.04271622 0.04181514 0.04092951 0.04005916 0.03920390 0.03836357 0.03753798 0.03672696
+ 0.03593032 0.03514789 0.03437950 0.03362497 0.03288412 0.03215677 0.03144276 0.03074191 0.03005404 0.02937898
+ 0.02871656 0.02806661 0.02742895 0.02680342 0.02618984 0.02558806 0.02499790 0.02441919 0.02385176 0.02329547
+ 0.02275013 0.02221559 0.02169169 0.02117827 0.02067516 0.02018222 0.01969927 0.01922617 0.01876277 0.01830890
+ 0.01786442 0.01742918 0.01700302 0.01658581 0.01617738 0.01577761 0.01538633 0.01500342 0.01462873 0.01426212
+ 0.01390345 0.01355258 0.01320938 0.01287372 0.01254546 0.01222447 0.01191063 0.01160379 0.01130384 0.01101066
+ 0.01072411 0.01044408 0.01017044 0.00990308 0.00964187 0.00938671 0.00913747 0.00889404 0.00865632 0.00842419
+ 0.00819754 0.00797626 0.00776025 0.00754941 0.00734363 0.00714281 0.00694685 0.00675565 0.00656912 0.00638715
+ 0.00620967 0.00603656 0.00586774 0.00570313 0.00554262 0.00538615 0.00523361 0.00508493 0.00494002 0.00479880
+ 0.00466119 0.00452711 0.00439649 0.00426924 0.00414530 0.00402459 0.00390703 0.00379256 0.00368111 0.00357260
+ 0.00346697 0.00336416 0.00326410 0.00316672 0.00307196 0.00297976 0.00289007 0.00280281 0.00271794 0.00263540
+ 0.00255513 0.00247707 0.00240118 0.00232740 0.00225568 0.00218596 0.00211821 0.00205236 0.00198838 0.00192621
+ 0.00186581 0.00180714 0.00175016 0.00169481 0.00164106 0.00158887 0.00153820 0.00148900 0.00144124 0.00139489
+ 0.0013499  0.00130624 0.00126387 0.00122277 0.00118289 0.00114421 0.00110668 0.00107029 0.001035   0.00100078
+ 0.00096763 0.00093543 0.00090425 0.00087403 0.00084473 0.00081635 0.00078884 0.00076219 0.00073637 0.00071136
+ 0.0006871  0.00066367 0.00064095 0.00061895 0.00059764 0.00057702 0.00055706 0.00053773 0.00051903 0.00050093
+ 0.00048342 0.00046648 0.00045008 0.00043423 0.00041889 0.00040405 0.00038971 0.00037584 0.00036242 0.00034946
+ 0.00033692 0.00032481 0.00031310 0.00030179 0.00029085 0.00028029 0.00027008 0.00026022 0.00025070 0.00024151
+ 0.00023262 0.00022405 0.00021577 0.0002077  0.00020006 0.00019261 0.00018542 0.00017849 0.00017179 0.00016533
+ 0.00015910 0.00015309 0.00014730 0.00014171 0.00013631 0.0001311  0.00012610 0.00012127 0.00011661 0.00011212
+ 0.0001078  0.00010363 0.00009961 0.00009573 0.00009201 0.00008841 0.00008495 0.00008162 0.00007841 0.00007532
+ 0.00007234 0.00006948 0.00006672 0.00006407 0.00006151 0.00005905 0.00005669 0.00005441 0.00005222 0.00005012
+ 0.00004809 0.00004614 0.00004427 0.00004247 0.00004074 0.00003907 0.00003747 0.00003593 0.00003445 0.00003303]
+def
+
+/qfunction
+   {
+   dup
+   qfunctionabs
+   exch 0.0 le
+   {1.0 exch sub} if
+   }
+def
+
+/qfunctionabs
+   {
+   abs /qtemp exch def
+   qtemp 3.99 ge
+   {0.398942280 qtemp div 2.718281828 qtemp qtemp mul 2.0 div -1 mul exp mul}
+   {qtemp 100 mul round cvi qarray exch get} ifelse
+   }
+def
+
+%%EndProlog
+
+% clipping
+0 0 moveto
+xtotalpts 0 lineto
+xtotalpts ytotalpts lineto
+0 ytotalpts lineto
+closepath clip newpath 
+
+% axes
+axesr axesg axesb setrgbcolor
+axeswidth setlinewidth
+[] 0 setdash
+leftpts bottompts moveto
+leftpts ximagepts add bottompts lineto 
+leftpts bottompts moveto
+leftpts bottompts yimagepts add lineto
+stroke
+
+% tic marks
+ticr ticg ticb setrgbcolor
+[] 0 setdash
+% tic marks on x axis
+ticmainwidth setlinewidth
+xstart xticdelta xend xticdelta 0.1 mul sub 
+   {
+   xstart sub xscale mul leftpts add bottompts tichalflength 
+   sub moveto 0 tichalflength 2 mul rlineto
+   }
+for
+%
+% tic marks on y axis
+logscale 0 eq
+   {
+   % tic marks for linear scale
+   ticmainwidth setlinewidth
+   ystart yticdelta yend yticdelta 0.1 mul sub
+      {
+      leftpts tichalflength sub exch ystart sub yscale mul 
+      bottompts add moveto tichalflength 2 mul 0 rlineto
+      }
+   for
+   stroke
+   }
+   {
+   % tic marks for log scale
+   ystart 1.0 yend
+      {
+      % first do the main lines
+      % duplicate current y value
+      dup
+
+      % set wide linewidth
+      ticmainwidth setlinewidth
+
+      % draw the main grid line
+      leftpts tichalflength sub exch ystart sub yscale mul
+      bottompts add moveto tichalflength 2 mul 0 rlineto
+      stroke
+
+      % save current y value
+      /mybase exch def
+
+      % if we have not reached the top then
+      % do lines in between
+      mybase yend yend ystart sub 0.000001 mul sub lt
+         {
+         % set fine linewidth
+         ticfinewidth setlinewidth
+
+         % loop over all intermediate lines
+         loggridspacing loggridspacing 9.999999
+            {
+            log mybase add
+            leftpts tichalflength sub exch ystart sub yscale mul
+            bottompts add moveto tichalflength 2 mul 0 rlineto
+            }
+         for
+         stroke
+         }
+      if
+      }
+   for
+   }
+ifelse
+
+% grid
+[griddasha griddashb] 0 setdash
+%
+% xgrid
+gridmainwidth setlinewidth
+xstart xgriddelta add xgriddelta xend xgriddelta 0.1 mul sub
+   { 
+   xstart sub xscale mul leftpts add 
+   bottompts moveto 0 yimagepts rlineto
+   }
+for
+stroke
+%
+% ygrid
+logscale 0 eq 
+   {
+   % grid lines for linear scale
+   gridmainwidth setlinewidth
+   ystart ygriddelta add ygriddelta yend ygriddelta 0.1 mul sub
+      {
+      leftpts exch ystart sub yscale mul 
+      bottompts add moveto ximagepts 0 rlineto
+      }
+   for
+   stroke
+   }
+   {
+   % grid lines for log scale
+   ystart 1.0 yend
+      {
+      % first do the main lines
+      % duplicate current y value
+      dup
+
+      % set wide linewidth
+      gridmainwidth setlinewidth
+
+      % draw the main grid line
+      leftpts exch ystart sub yscale mul 
+      bottompts add moveto ximagepts 0 rlineto
+      stroke
+
+      % save current y value 
+      /mybase exch def
+
+      % if we have not reached the top then
+      % do lines in between 
+      mybase yend yend ystart sub 0.000001 mul sub lt
+         {
+         % set fine linewidth
+         gridfinewidth setlinewidth
+
+         % loop over all intermediate lines
+         loggridspacing loggridspacing 9.999999
+            {
+            log mybase add
+            leftpts exch ystart sub yscale mul 
+            bottompts add moveto ximagepts 0 rlineto
+            }
+         for
+         stroke
+         }
+      if
+      }
+   for 
+   }   
+ifelse
+
+% plot labels 
+/Helvetica findfont myfontsize 0.9 mul scalefont setfont
+/str 20 string def
+ticr ticg ticb setrgbcolor
+[] 0 setdash
+% numbers on x axis
+ticmainwidth setlinewidth
+xstart xticdelta xend xticdelta 0.1 mul sub
+   {
+   dup xstart sub xscale mul leftpts add
+   bottompts myfontsize 1.5 mul sub moveto
+   str cvs cshow
+   }
+for
+%
+% numbers on y axis
+logscale 0 eq
+   {
+   % numbers for linear scale
+   ticmainwidth setlinewidth
+   ystart yticdelta yend yticdelta 0.1 mul sub
+      {
+      dup  
+      leftpts myfontsize 2.5 mul sub exch 
+      ystart sub yscale mul
+      bottompts add myfontsize 0.5 mul sub
+      moveto str cvs show 
+      }
+   for
+   stroke
+   }
+   {
+   % numbers for log scale
+   ystart 1.0 yend 1 sub
+     {
+      % first do the main lines
+      % duplicate current y value
+      dup
+
+      leftpts myfontsize 2.5 mul sub exch
+      ystart sub yscale mul
+      bottompts add myfontsize 0.3 mul sub
+      moveto cvi str cvs (10) exch superscriptshow 
+      }
+   for
+   }
+ifelse
+/Symbol findfont myfontsize 1 mul scalefont setfont 
+370 8 moveto 
+(e) show
+
+% clipping
+leftpts bottompts moveto
+leftpts ximagepts add bottompts lineto
+leftpts ximagepts add bottompts yimagepts add lineto
+leftpts bottompts yimagepts add lineto
+closepath clip stroke 
+
+% (3, 6)-ensemble
+% n=1024; exp=25
+rreal greal breal setrgbcolor
+thicknessreal setlinewidth
+[] 0 setdash

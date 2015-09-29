@@ -1,0 +1,19 @@
+
+read param file ... samplefiles/sample_params/param_3x4x_gala_bsc_n512
+ seeds: 9793 42496 64perform sanity check on consistency of input ...... check finished 
+
+
+simulations:
+results are printed in the following format.
+i ... initial number of errors over the whole length
+r ... remaining number of errors over the whole length
+t ... total number of errors over the whole length
+p ... bit error rate.
+w ... number of word errors over the whole length
+wr ... word error rate over the whole length
+em ... nb of messages carrying errors at the end of one loopnbe ... nb of edges in current graphrealization[0.1- 10000] i:=    52 r:=     0 pb:=0.0510812500 0.5151126081 <= pB:=      0.5251 <= 0.5350873919
+[0.09- 10000] i:=    42 r:=     0 pb:=0.0162392578 0.3393675546 <= pB:=      0.3489 <= 0.3584324454
+[0.08- 10000] i:=    45 r:=     4 pb:=0.0038521484 0.2551840145 <= pB:=       0.264 <= 0.2728159855
+[0.07- 10000] i:=    39 r:=     0 pb:=0.0011259766 0.2085586952 <= pB:=      0.2168 <= 0.2250413048
+
+ simulation ends

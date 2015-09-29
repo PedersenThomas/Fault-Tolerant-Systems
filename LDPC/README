@@ -1,0 +1,220 @@
+/***************************
+/* INSTALLATION            *
+/**************************/
+At this point, you have most probably extracted the source code from the
+zip-file. The next step to do is the compilation process:
+
+1) go to programfiles/simfiles: 
+	* type make
+	* the executable 'sim' will appear in the root directory
+	* the executable 'mackay2lth' will appear in the directory 'programfiles/simfiles.
+
+2) go to programfiles/ppfiles:
+	* type make
+	* the executable 'pp' will appear in the root directory
+
+You are now ready to run some examples as described below.
+	
+
+/********************************
+/* Sample usage of LDPC-decoder:*
+/*******************************/
+./sim <param> (Replace <param> by any param-file you find in the directory
+	/samplefiles/sampe_params. 
+	You'll find the corresponding output in the directory
+	/samplefiles/sample_outputs.)
+
+1) param_36_bec_n512_fixedseeds_printonscreen								
+	-> random (3,6)LDPC using BP over BEC with 
+		given graph- and channel seeds
+
+2) param_36_bec_n512_fixedseeds_usealwaysfirstgraph_printonscreen		
+	-> first (3,6)LDPC is generated randomly and 
+		than used for the following channelrealizations.
+
+3) param_36_bec_n512_generategraph_printonscreen							
+	-> generate one (3,6)LDPC graph and store into 
+		samplefiles/sample_graphs/
+
+4) param_bec_useexistinggraph_printonscreen									
+	-> reuse a previously generated graph, 
+		use fixed channel seeds
+
+5) param_36_n512_fixedseeds_printtofile										
+	-> random (3,6)LDPC using BP over BEC with given graph and channel seeds
+		datafiles are stored in /data and can be postprocessed with 
+		./pp samplefiles/sample_params/param_pp_36_n512_fixedseeds_printtofile. 
+		The sampleoutput can be found in 
+		samplefiles/sample_output/output_pp_n512_fixedseeds_printtofile.
+
+6) param_pp_36_n512_fixedseeds_printtofile 									
+	-> see previous sample
+
+7) param_36_n512_randseeds_printtoscreen										
+	-> random (3,6)LDPC using BP over BEC with random graph- and channel seeds
+
+8) param_irreg_bec_n512_randseeds_printonscreen								
+	-> random irregular LDPC graph using BP over BEC with 
+		fixed graph- and channel seeds
+
+9) param_MacKay408.33.864															
+	-> structured code by MacKay using BP over AWGN
+
+10) param_Margulis2640.1320.3 														
+	-> structured code by MacKay using BP over AWGN
+
+/**********************
+/* Use of random seeds*
+/*********************/
+In the parameter file, you can choose weather or not, 
+you want to fix the seeds for initializing the 
+channel and graph generation.
+
+** Assume, you run the first run randomly and want 
+	to rerun the same simulations later:
+1. Run simulation using random seeds 
+	-> seeds are stored in outputfile and printed on screen 
+
+2. Put the corresponding seeds into parameter file 
+	and run simulation again.
+	This will give you exactly the same realization as in 1.
+
+/**********************************
+/* generate and resuse fixed graph*
+/*********************************/
+see example 3) and 4)
+
+/***************************************************************
+/* use ./pp (postprocessing of datafiles, only on Unix and OsX)*
+/***************************************************************/
+- basename is given in parameterfile, see example 5)
+- for each channelparameter, one file with output of 
+	each realization is stored in /data
+- /.pp evaluates datafile, see example 6)
+
+/**********************************
+/* Explanations of the parameters:*
+/*********************************/
+# verbose: 
+1-> gives you some debug output, default: 0
+
+# description of the graph:
+0 ->  you want to use a specific graph, which already exists in a graphfile
+	example: 0
+				graphfile
+
+1 -> you want to use a random graph, which is described by specifications 
+	in the next paragraphby.
+	In that case, you can start the random generator either by:
+	0 -> start the generator based on the date
+	1 -> you want to rerun a realization based on a given seed-triple
+
+	For both cases, you can decide to construct a new graph for each
+	realization, or to keep the same graph for each channel realization.
+
+	In any case, you want to give a graph-file, which you may need for example
+	for the encoder
+
+# ensemble:
+In case you provide the graph in a graph-file, this part is ignored.
+Otherwise, you can choose between 
+0 -> standard ensemble  
+	* number of variable nodes
+	* type of dedgree distribution
+	0 -> node distribution (ratio of nodes of a certain degree (should add up
+	  	to 1!)): list with: degree ration of nodes with this degree
+	   1-> edge distribution 
+	* degree distribution list: (degree 2 is always needed even if [2 0.0] !)
+	    [degree  percentage] on variables side
+		 -1 -1.0  (as seperation line)
+		 [degree percentage] on check node side
+		 -1 -1.0 (to tell program that list is finished)
+1 -> protograph ensembles.
+	* number of copies of protograph 
+	  (number of variable nodes will be length of protograph * number of copies)
+	* file in which protograph is stored only in 'variable node view'
+
+# encoding:
+0 -> use all-one codeword
+1 -> use random codeword
+
+# channel type:
+0 -> BEC (only in combination with BP decoder)
+1 -> BSC (in combination with BP, GalA and Decoder with Erasure)
+2 -> AWGN (only in combination with BP decoder)
+
+# number of channelparameter
+- number of parameters:
+
+# list of parameter:
+	* for BEC: erasureprobability
+	* for BSC: crossoverprobability
+	* for AWGN: sigma 
+
+# decoder:
+1 -> Belief propagation (in combination with BEC, BSC and AWGN channel)
+2 -> Gallagar A       (only in combination with BSC channel)
+3 -> Decoder with Erasure (only in combination with BSC channel)
+
+# noise for simulation:
+0 -> use time to generate seeds for random generator
+1 -> use given seeds for random generator
+
+# number of loops:
+	= number of realizations
+0 -> run fixed number of loops 
+	(for BEC, simulator stops as soon as no more progression happens)
+1 -> run until confidence interval of Block error probability is reached
+
+# number iterations:
+number of iterations inside the graph
+
+# expurgation
+count only errors of size at least ... (small errors are not taken into account)
+
+# print out every
+if print to screen, you can choose after how many loops you want to see the result
+
+# print to file
+0 -> print to screen
+>0 print to datafile
+	basename (_channelparameter) will be appended
+
+
+/******************************
+/* Format of graph storage    *
+/******************************
+/* vnodednum and cnodenum /* (number of variable and check nodes)
+	n  m
+
+/* vdegreesnum and cdegreesnum */ 
+	(number of different degrees for variable and check nodes)
+   ndegree mdegree
+
+/* vmaxdegree and cmaxdegree */ 
+	(maximal vnodedegree and maximal cnodedegree)
+	nmaxdegree mmaxdegree
+
+/* list of vnode degrees */ 
+	(list in the following format, one line per different degree) 
+	degree number of vnodes with this degree
+	
+/* list of cnode degrees */ 
+	(list in the following format, one line per different degree)
+	degree number of cnodes with this degree
+
+/* description of vnodes */ 
+	(list in the following format, one line per vnode)
+	degree tonode1 tosocket1 tonode2 tosocket2 ... tonode_degree tosocket_degree
+
+/* description of cnodes */ (same format as vnodes)
+
+number (gap for encoder. -1 -> no info)
+
+/* information for encoder */ (inverse of phi row by row)
+
+
+/****************
+/* Modularity   *
+/****************
+Our program is easy to change

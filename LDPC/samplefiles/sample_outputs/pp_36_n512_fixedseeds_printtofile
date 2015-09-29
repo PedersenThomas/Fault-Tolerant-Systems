@@ -1,0 +1,22 @@
+length 512
+nbedges 1536
+length 512
+nbedges 1536
+length 512
+nbedges 1536
+length 512
+nbedges 1536
+length 512
+nbedges 1536
+
+
+Error probability: [channel parameter, pB, pb, number of samples, variance of pb]  
+0.460000  0.9480000000  0.3260156250  1000  0.00890626  pointconf
+0.440000  0.7970000000  0.2434179687  1000  0.01810460  pointconf
+0.420000  0.5060000000  0.1371308594  1000  0.02030205  pointconf
+0.400000  0.2060000000  0.0477363281  1000  0.00976079  pointconf
+0.370000  0.0270000000  0.0047636719  1000  0.00108444  pointconf
+
+
+
+DONE

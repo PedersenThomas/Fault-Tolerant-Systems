@@ -1,0 +1,32 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:533: checking for gcc
+configure:646: checking whether the C compiler (gcc  ) works
+configure:662: gcc -o conftest    conftest.c  1>&5
+configure:688: checking whether the C compiler (gcc  ) is a cross-compiler
+configure:693: checking whether we are using GNU C
+configure:702: gcc -E conftest.c
+configure:721: checking whether gcc accepts -g
+configure:757: checking for malloc in -lc
+configure:776: gcc -o conftest -g -O2   conftest.c -lc   1>&5
+configure:769:6: warning: conflicting types for built-in function 'malloc' [enabled by default]
+ char malloc();
+      ^
+configure:805: checking how to run the C preprocessor
+configure:826: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:888: checking for string.h
+configure:898: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:976: checking host system type
+configure:997: checking target system type
+configure:1015: checking build system type
+configure:1048: checking for memset
+configure:1076: gcc -o conftest -g -O2   conftest.c -lc  1>&5
+configure:1060:6: warning: conflicting types for built-in function 'memset' [enabled by default]
+ char $ac_func();
+      ^
+configure:1048: checking for memmove
+configure:1076: gcc -o conftest -g -O2   conftest.c -lc  1>&5
+configure:1060:6: warning: conflicting types for built-in function 'memmove' [enabled by default]
+ char $ac_func();
+      ^

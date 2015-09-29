@@ -1,0 +1,153 @@
+/************************************************
+* The first parameter is an integer describing  *
+* if all the explanations shall be printed out. *
+* "0"=quiet mode                                *
+* "1"=verbose mode                              *
+************************************************/
+0
+/************************************************
+* description of graph                          *
+*************************************************
+* 0: if graph has already been constructed      *
+*    * name of file which contains graph        *
+* 1: if only degree distribution is known       *
+*    * 0: random number generator is started    *
+*         by seed chosen according to date      *
+*         * 1: construct once                   *
+*              * name of file to store graph    *
+*         * 0: construct every time             *
+*              * name of file to store graph    *
+*    * 1: random number generator is started    *
+*         by the following triple               *
+*         * seed triple                         *
+*            * 1: construct once                *
+*                * name of file to store graph  *
+*            * 0: construct every time          *
+*                * name of file to store graph  *
+************************************************/
+1
+1
+100 200 300
+0
+graphfile
+/************************************************
+* ensemble                                      *
+*************************************************
+* 0: standard ensemble                          *
+*    * number of variable nodes                 *
+*    * type of degree distribution              *
+*      * 0: node distribution                   *
+*           * degree distribution               *
+*             (separate variable and check node *
+*             distribution by '-1 -1.0')        *      
+*      * 1: edge distribution)                  *
+*           * degree distribution               *
+*             (separate variable and check node *
+*              distribution by '-1 -1.0')       *
+*                                               *
+* 1: protograph ensembles                       *
+*    * number of copies                         *
+*    * file in which protograph is stored       *
+*            only in 'variable node view'       *
+*                                               *
+************************************************/
+0
+512
+1
+2 0.0
+3 1.0
+-1 -1.0
+6 1.0
+-1 -1.0
+/************************************************
+* encoding 0 send all-one codeword              *
+*          1 use encoder                        *
+************************************************/
+0
+/************************************************
+* channel: 0 BEC                                *
+*          1 BSC                                *
+*          2 AWGNC                              *
+************************************************/
+0
+/************************************************
+* number of channel parameters for which to do  *
+* the simulations                               *
+* (number of points on the error curve)         *
+************************************************/
+5
+/************************************************
+* channel parameters                            *
+************************************************/
+0.46
+0.44
+0.42
+0.40
+0.37
+/************************************************
+* decoder:                                      *
+*          1 Belief propagation                 *
+*          2 Gallager A                         *
+*          3 Decoder with Erasure               *
+************************************************/
+1
+/************************************************
+* noise for simulation:                         *
+* 0: random number generator is started by      *
+*    seed chosen according to date              *
+* 1: random number generator is started by      *
+*    the seed which is the next triple;         *
+************************************************/
+1
+400 500 600
+/************************************************
+* number of loops:                              *
+*    0: run for a fixed number of loops         *
+*       * number of loops                       *
+*                                               *
+*    1: run until confidence (on block prob)    *
+*       aim has been reached                    *
+*       * alpha: in (0, 1)                      *
+*         confidence interval is contained      *
+*         in [(1-alpha)P, (1+alpha)P]           *
+* 999999999 is maximum allowed number of loops  *
+************************************************/
+0
+1000
+/************************************************
+* number of iterations                          *
+************************************************/
+100
+/************************************************
+* expurgation                                   *
+* count only errors of size at least ...        *
+* NOTE: if we print result to a file, this      *
+*       number is only used compute accuracy    *
+*       but all errors are recorded             *
+************************************************/
+1
+/************************************************
+* print out every ...                           *
+* NOTE: set this to 1 if you print to a file    *
+*       otherwise file does not contain         *
+*       complete data                           *
+************************************************/
+1
+/************************************************
+* print to file                                 *
+* if >0 next line contains filename             *
+*  0 means print on screen                      *
+*    prints:                                    *
+*    channelparam, loops, initial num of err    * 
+*    remaining errors, bit error probability    * 
+*    block error prob with 95% conf interval    *  
+*  1 means print to file in compact form        *
+*    next line contains filename                *
+*    channelparam is added automatically to     *
+*    name                                       *
+*    prints:                                    *
+*    loop, number of remaining errors           *  
+************************************************/
+1
+data_36_n512_fixedseeds_printtofile
+

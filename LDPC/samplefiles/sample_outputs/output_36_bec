@@ -1,0 +1,25 @@
+
+read param file ... samplefiles/sample_params/param_36_bec
+ seeds: 33312 41984 64perform sanity check on consistency of input ...... check finished 
+
+
+simulations:
+results are printed in the following format.
+i ... initial number of errors over the whole length
+r ... remaining number of errors over the whole length
+t ... total number of errors over the whole length
+p ... bit error rate.
+w ... number of word errors over the whole length
+wr ... word error rate over the whole length
+em ... nb of messages carrying errors at the end of one loopnbe ... nb of edges in current graphrealization[0.52-  1000] i:=   529 r:=   486 pb:=0.4624110000            1 <= pB:=           1 <=            1
+[0.5-  1000] i:=   517 r:=   460 pb:=0.4289210000            1 <= pB:=           1 <=            1
+[0.48-  1000] i:=   472 r:=   384 pb:=0.3889480000            1 <= pB:=           1 <=            1
+[0.46-  1000] i:=   450 r:=   312 pb:=0.3350990000 0.9651257912 <= pB:=       0.975 <= 0.9848742088
+[0.44-  1000] i:=   447 r:=   279 pb:=0.2376160000 0.7841388657 <= pB:=       0.809 <= 0.8338611343
+[0.42-  1000] i:=   398 r:=     0 pb:=0.1146110000 0.4135691235 <= pB:=       0.445 <= 0.4764308765
+[0.4-  1000] i:=   397 r:=     0 pb:=0.0206730000 0.07099122436 <= pB:=       0.089 <= 0.1070087756
+[0.38-  1000] i:=   391 r:=     0 pb:=0.0006750000 0.0005390583954 <= pB:=       0.005 <= 0.009460941605
+[0.36-  1000] i:=   383 r:=     0 pb:=0.0000120000 0.001115739565 <= pB:=       0.006 <= 0.01088426044
+[0.34-  1000] i:=   344 r:=     0 pb:=0.0000080000            0 <= pB:=       0.003 <= 0.00645890156
+
+ simulation ends

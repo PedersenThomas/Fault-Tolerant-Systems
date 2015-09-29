@@ -1,0 +1,24 @@
+
+read param file ... samplefiles/sample_params/param_36_bec_n512_generategraph_printonscreenperform sanity check on consistency of input ...... check finished 
+
+
+simulations:
+results are printed in the following format.
+i ... initial number of errors over the whole length
+r ... remaining number of errors over the whole length
+pb ... bit error rate.
+pB ... word error rate over the whole length with confidence interval
+
+
+ /******* SEEDS ***********/
+graphseeds:   100 200 300
+channelseeds: 400 500 600
+/*************************/
+
+[0.46-  1000] i:=   237 r:=   182 pb:=0.3267226563 0.9305812622 <= pB:=       0.945 <= 0.9594187378
+[0.44-  1000] i:=   235 r:=   180 pb:=0.2460097656 0.7893907335 <= pB:=       0.814 <= 0.8386092665
+[0.42-  1000] i:=   207 r:=     0 pb:=0.1366679688 0.4763812714 <= pB:=       0.508 <= 0.5396187286
+[0.4-  1000] i:=   181 r:=     0 pb:=0.0520351562 0.1842395652 <= pB:=        0.21 <= 0.2357604348
+[0.37-  1000] i:=   207 r:=     0 pb:=0.0043808594 0.0119315933 <= pB:=       0.021 <= 0.0300684067
+
+ simulation ends
