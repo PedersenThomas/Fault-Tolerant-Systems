@@ -1,6 +1,8 @@
 import reedsolo
 import random
+import os
 from bitarray import bitarray
+import matplotlib.pyplot as plt
 
 def ByteToBit(byteArray):
     result = bitarray()
@@ -13,43 +15,52 @@ def ByteToBit(byteArray):
 def BitToByte(bitarr):
     return bytearray(bitarr.tobytes())
 
-def TestReedSolo():
-    print ''
-    NUM_ERRORS = 2
-    
-    rs = reedsolo.RSCodec(2)
-
-    inputText = bytearray([5,7,0,108,52,66])
-    encoded = rs.encode(inputText)
-
+def Test(messageLength, numberOfErrors):
+    rs = reedsolo.RSCodec(4)
+    inputData = bytearray(os.urandom(messageLength))
+    encoded = rs.encode(inputData)
     bitEncoded = ByteToBit(encoded)
 
     # Introduce NUM_ERRORS bit flips
-    indexes = random.sample(range(len(bitEncoded)), NUM_ERRORS)
+    indexes = random.sample(range(len(bitEncoded)), numberOfErrors)
     for index in indexes:
         bitEncoded[index] = not bitEncoded[index]
     encoded = BitToByte(bitEncoded)
-    
+
     decoded = None
     try:
         decoded = rs.decode(encoded)
     except reedsolo.ReedSolomonError:
-        print 'Too many errors'
+        # Too many errors for it to correct.
         return False
     
-    if inputText == decoded:
-        print 'Success'
+    if inputData == decoded:
         return True
     else:
-        print 'Phantom error.', len(inputText), len(encoded), indexes
-        print ','.join('{:02x}'.format(x) for x in inputText)
-        print ','.join('{:02x}'.format(x) for x in decoded)
+        # Phantom errors. Ie. there are errors it did not catch
         return False
 
+def RepeatedTry(messageLength, numberOfErrors, iterations=10):
+    for _ in range(iterations):
+        result = Test(messageLength, numberOfErrors)
+        if result == True:
+            return True
+    return False
+
 if __name__ == '__main__':
-    results = [TestReedSolo() for _ in range(100)]
-    if all(results):
-        print '---ALL OK---'
-    else:
-        print results
+    data = list()
+    for messageLength in range(7, 50):
+        print messageLength
+        for numberOfErrors in range(messageLength, 1, -1):
+            result = RepeatedTry(messageLength, numberOfErrors, messageLength*2)
+
+            if result:
+                data.append( (messageLength, numberOfErrors) )
+                break
+                
+    plt.scatter([d[0] for d in data], [d[1] for d in data], edgecolors='None', color='b')
+
+    plt.ylabel('Number of Errors')
+    plt.xlabel('Message length')
+    plt.show()
     
