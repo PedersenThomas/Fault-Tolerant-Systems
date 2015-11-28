@@ -16,13 +16,14 @@ def BitToByte(bitarr):
     return bytearray(bitarr.tobytes())
 
 def Test(messageLength, numberOfErrors):
-    rs = reedsolo.RSCodec(4)
+    correctErrors = 2
+    rs = reedsolo.RSCodec(correctErrors**2)
     inputData = bytearray(os.urandom(messageLength))
     encoded = rs.encode(inputData)
     bitEncoded = ByteToBit(encoded)
 
     # Introduce NUM_ERRORS bit flips
-    indexes = random.sample(range(len(bitEncoded)), numberOfErrors)
+    indexes = random.sample(range(0, len(bitEncoded)), numberOfErrors)
     for index in indexes:
         bitEncoded[index] = not bitEncoded[index]
     encoded = BitToByte(bitEncoded)
@@ -49,9 +50,9 @@ def RepeatedTry(messageLength, numberOfErrors, iterations=10):
 
 if __name__ == '__main__':
     data = list()
-    for messageLength in range(7, 50):
+    for messageLength in range(1000, 1020):
         print messageLength
-        for numberOfErrors in range(messageLength, 1, -1):
+        for numberOfErrors in range(messageLength+1, 1, -1):
             result = RepeatedTry(messageLength, numberOfErrors, messageLength*2)
 
             if result:

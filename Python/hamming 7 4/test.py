@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def TestHamming(messageLegnth, numberOfErrors):
     encodingBits = 3
-    msg = hamming_codes.Message(encodingBits, messageLength, debug=False)
+    msg = hamming_codes.Message(mLength=messageLength, debug=False)
     msg.corruptMessage(numberOfErrors)
     msg.parityCheck()
     m = msg.decodeMessage()
@@ -27,13 +27,15 @@ if __name__ == '__main__':
     numberOfErrors = 0
 
     data = list()
-    
-    for messageLength in range(4, 30):
-        print messageLength
+
+    retries = 1000
+    for iteration in range(1, 2):
+        messageLength = 1000 #iteration*4
+        print iteration, messageLength
         for numberOfErrors in range(messageLength, 1, -1):
-            minErr, maxErr, encodedSize = RepeatedTry(messageLength, numberOfErrors, messageLength*10)
+            minErr, maxErr, encodedSize = RepeatedTry(messageLength, numberOfErrors, retries)
             if minErr == 0:
-                data.append( (messageLength, numberOfErrors/float(messageLength)) )
+                data.append( (messageLength, numberOfErrors/float(encodedSize)) )
                 break
                 
     # Plots the data
